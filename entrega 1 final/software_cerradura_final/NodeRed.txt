@@ -1,0 +1,211 @@
+[
+    {
+        "id": "9f87c06d.37289",
+        "type": "tab",
+        "label": "Flujo de la cerradura",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4f5ece6b.2e26d",
+        "type": "serial in",
+        "z": "9f87c06d.37289",
+        "name": "Yale Lock",
+        "serial": "ffb61282.c1b68",
+        "x": 98.01954650878906,
+        "y": 120.00390625,
+        "wires": [
+            [
+                "bf4df4ac.3886a8",
+                "b73008fd.9cfde8"
+            ]
+        ]
+    },
+    {
+        "id": "b73008fd.9cfde8",
+        "type": "function",
+        "z": "9f87c06d.37289",
+        "name": "Format Input",
+        "func": "var res = {};\nvar tempArray = [];\nvar tempUnit = \"\";\n\n//tempString = msg.payload;\ninput = msg.payload;\n\ntempArray = input.split(\";\");\nvar id = {};\nvar status = {};\nvar suspiciousAttempt = {};\nvar presence = {};\nvar longAperture = {};\nfor (i = 0; i < tempArray.length; i++)\n{ \n    var data = tempArray[i].split(\":\");\n    if(data[0] === \"id\")\n    {\n        id = parseInt(data[1]);\n    }\n    else if(data[0]===\"status\")\n    {\n        if(data[1] === \"true\")\n        {\n            status = true;\n        }\n        else\n        {\n            status = false;\n        }\n    }\n    else if(data[0] === \"suspiciousAttempt\")\n    {\n        if(data[1] === \"true\")\n        {\n            suspiciousAttempt = true;\n        }\n        else\n        {\n            suspiciousAttempt = false;\n        }\n    }\n    else if(data[0] === \"presence\")\n    {\n        if(data[1] === \"true\")\n        {\n            presence = true;\n        }\n        else\n        {\n            presence = false;\n        }\n    }\n    else if(data[0] === \"longAperture\")\n    {\n        if(data[1] === \"true\")\n        {\n            longAperture = true;\n        }\n        else\n        {\n            longAperture = false;\n        }\n    }\n}\n\n\n//tempUnit = tempArray[1].replace(\"\\r\\n\", \"\");\nres.topic = \"keylockData\";\nres.payload = {};\n\nres.payload = {\"id\": parseInt(id), \"status\" : status, \"suspiciousAttempt\": suspiciousAttempt, \"presence\" : presence,\"longAperture\" : longAperture};\n\nreturn res;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 417.01953887939453,
+        "y": 156.00390911102295,
+        "wires": [
+            [
+                "8140bb0e.b7f458",
+                "24bf0d14.a65152",
+                "a0b8a789.b7abd8"
+            ]
+        ]
+    },
+    {
+        "id": "bf4df4ac.3886a8",
+        "type": "debug",
+        "z": "9f87c06d.37289",
+        "name": "Before Input Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 413.89063262939453,
+        "y": 55.6640625,
+        "wires": []
+    },
+    {
+        "id": "8140bb0e.b7f458",
+        "type": "debug",
+        "z": "9f87c06d.37289",
+        "name": "After Format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 607.8828430175781,
+        "y": 111.6640682220459,
+        "wires": []
+    },
+    {
+        "id": "54d5170.c4b64e8",
+        "type": "inject",
+        "z": "9f87c06d.37289",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 113.12108612060547,
+        "y": 346.8672065734863,
+        "wires": [
+            [
+                "a368a3ba.18667",
+                "d4b3d0f8.07fe1"
+            ]
+        ]
+    },
+    {
+        "id": "a368a3ba.18667",
+        "type": "function",
+        "z": "9f87c06d.37289",
+        "name": "message generator",
+        "func": "var message = {};\nmessage.payload = \"id:1;status:true;suspiciousAttempt:false;presence:false;longAperture:true\";\nreturn message;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 198.8828582763672,
+        "y": 265.2031841278076,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24bf0d14.a65152",
+        "type": "switch",
+        "z": "9f87c06d.37289",
+        "name": "suspicious attempt filter",
+        "property": "payload.suspiciousAttempt",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 1,
+        "x": 654.8907775878906,
+        "y": 201.0625286102295,
+        "wires": [
+            [
+                "723d7627.91e238"
+            ]
+        ]
+    },
+    {
+        "id": "723d7627.91e238",
+        "type": "mqtt out",
+        "z": "9f87c06d.37289",
+        "name": "Salida de mensajes de emergencia MQTT",
+        "topic": "colombia.bogota.residencia1.inmueble1.1",
+        "qos": "0",
+        "retain": "false",
+        "broker": "463ea16b.ed638",
+        "x": 965.8867130279541,
+        "y": 139.6250400543213,
+        "wires": []
+    },
+    {
+        "id": "d4b3d0f8.07fe1",
+        "type": "function",
+        "z": "9f87c06d.37289",
+        "name": "message generator2",
+        "func": "var message = {};\nmessage.payload = \"id:1;status:true;suspiciousAttempt:true;presence:false;longAperture:false\";\nreturn message;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 323.01954650878906,
+        "y": 335.00391006469727,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a0b8a789.b7abd8",
+        "type": "switch",
+        "z": "9f87c06d.37289",
+        "name": "long aperture filter",
+        "property": "payload.longAperture",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 1,
+        "x": 631.01953125,
+        "y": 269.00390625,
+        "wires": [
+            [
+                "723d7627.91e238"
+            ]
+        ]
+    },
+    {
+        "id": "ffb61282.c1b68",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "COM3",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": true
+    },
+    {
+        "id": "463ea16b.ed638",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.69",
+        "port": "8083",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    }
+]]
