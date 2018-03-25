@@ -321,9 +321,9 @@ void setBuzzer(boolean status)
 
 void alarmEmitter(String dato)
 {
-  String respuesta = "ID:";
+  String respuesta = "{\"id\":";
   respuesta += DEVICE_ID;
-  respuesta += + ",alert:" + dato;
+  respuesta += ",\"alert\":\"" + dato + "\"}";
   Serial.println(respuesta);
 }
 
