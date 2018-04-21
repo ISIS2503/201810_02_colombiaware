@@ -1,2 +1,0 @@
-En nuestro proyecto se realizaron cambios al código estandar para el funcionamiento del Wiring debido a que adquirimos un LED 
-de tipo ánodo en vez de cátodo y su configuración es distinta. Además usamos los puertos 14 y 15 para el sensor de movimiento.
