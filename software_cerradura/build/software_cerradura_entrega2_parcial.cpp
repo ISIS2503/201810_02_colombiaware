@@ -155,6 +155,7 @@ boolean block;
 void setup()
 {
   Serial.begin(9600);
+  deleteAllPasswords();
   addPassword(1234, 1);
   currentKey = "";
   open = false;
