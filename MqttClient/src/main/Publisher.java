@@ -1,3 +1,16 @@
+/*******************************************************************************
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package  main;
 
 import java.awt.event.ActionEvent;
@@ -83,16 +96,23 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
     
     public static void envioPeticion()
     {
+    	Date date = new Date();
+		//Caso 1: obtener la hora y salida por pantalla con formato:
+		DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+		String h= hourFormat.format(date);
+		String c1= h.split(":")[0];
+		String c2= h.split(":")[1];
+		String horario = c1+":"+c2+":00";
     	URL obj;
 		try {
-			obj = new URL("http://172.24.42.22:8080/programaP");
+			obj = new URL("http://172.24.42.66:8080/claves/"+horario);
 		
     	HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("GET");
 			
 			con.setRequestProperty("Accept-Charset", "UTF-8");
 	 
-			System.out.println("\nSending request to URL : " + "http://172.24.42.66:8080/programaP");
+			
 			System.out.println("Response Code : " + con.getResponseCode());
 			System.out.println("Response Message : " + con.getResponseMessage());
 	 
@@ -116,10 +136,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 					}
 					
 				}
-				Date date = new Date();
-				//Caso 1: obtener la hora y salida por pantalla con formato:
-				DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
-				System.out.println("Hora: "+hourFormat.format(date));
+				
 			}
 			in.close();
 			
