@@ -1,8 +1,24 @@
 package co.edu.uniandes.isis2503.nosqljpa.service;
 
+import co.edu.uniandes.isis2503.nosqljpa.interfaces.IAdminLogic;
+import co.edu.uniandes.isis2503.nosqljpa.interfaces.IClienteLogic;
+import co.edu.uniandes.isis2503.nosqljpa.interfaces.IInmuebleLogic;
+import co.edu.uniandes.isis2503.nosqljpa.interfaces.IResidenciaLogic;
+import co.edu.uniandes.isis2503.nosqljpa.interfaces.ISeguridadLogic;
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IVirtualEntityLogic;
+import co.edu.uniandes.isis2503.nosqljpa.interfaces.IYaleLogic;
+import co.edu.uniandes.isis2503.nosqljpa.logic.AdminLogic;
+import co.edu.uniandes.isis2503.nosqljpa.logic.ClienteLogic;
+import co.edu.uniandes.isis2503.nosqljpa.logic.InmuebleLogic;
+import co.edu.uniandes.isis2503.nosqljpa.logic.ResidenciaLogic;
+import co.edu.uniandes.isis2503.nosqljpa.logic.SeguridadLogic;
 import co.edu.uniandes.isis2503.nosqljpa.logic.VirtualEntityLogic;
+import co.edu.uniandes.isis2503.nosqljpa.logic.YaleLogic;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.VirtualEntityDTO;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.AdminConverter.CONVERTERA;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ResidenciaConverter.CONVERTERR;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.InmuebleConverter.CONVERTERI;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ClienteConverter.CONVERTER;
 import com.sun.istack.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,9 +42,21 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class VirtualEntityService {
     private final IVirtualEntityLogic virtualEntityLogic;
+    private final IAdminLogic adminLogic;
+    private final IClienteLogic clienteLogic;
+    private final IInmuebleLogic inmuebleLogic;
+    private final IResidenciaLogic residenciaLogic;
+    private final ISeguridadLogic seguridadLogic;
+    private final IYaleLogic yaleLogic;
 
     public VirtualEntityService() {
         this.virtualEntityLogic = new VirtualEntityLogic();
+        this.adminLogic = new AdminLogic();
+        this.clienteLogic = new ClienteLogic();
+        this.inmuebleLogic = new InmuebleLogic();
+        this.residenciaLogic = new ResidenciaLogic();
+        this.seguridadLogic = new SeguridadLogic();
+        this.yaleLogic = new YaleLogic();
     }
 
     @POST
@@ -48,9 +76,12 @@ public class VirtualEntityService {
     }
     
     @GET
-    @Path("/residencia/{residencia}")
-    public List<VirtualEntityDTO> allResidencia(@PathParam("residencia") String residencia){
-        return virtualEntityLogic.allResidencia(residencia);
+    @Path("/admin/{id}/residencia/{residencia}")
+    public List<VirtualEntityDTO> allResidencia(@PathParam("id") String id, @PathParam("residencia") String residencia){
+        if(residenciaLogic.find(residencia).getAdmin() == CONVERTERA.dtoToEntity(adminLogic.find(id)))
+            return virtualEntityLogic.allResidencia(residencia);
+        else
+            return null;
     }
     
     @GET
@@ -60,9 +91,12 @@ public class VirtualEntityService {
     }
     
     @GET
-    @Path("/inmueble/{inmueble}")
-    public List<VirtualEntityDTO> allInmueble(@PathParam("inmueble") String inmueble){
-        return virtualEntityLogic.allInmueble(inmueble);
+    @Path("/cliente/{id}/inmueble/{inmueble}")
+    public List<VirtualEntityDTO> allInmueble(@PathParam("id") String id, @PathParam("inmueble") String inmueble){
+        if(inmuebleLogic.find(inmueble).getCliente() == CONVERTER.dtoToEntity(clienteLogic.find(id)))
+            return virtualEntityLogic.allInmueble(inmueble);
+        else
+            return null;
     }
 
     @GET
