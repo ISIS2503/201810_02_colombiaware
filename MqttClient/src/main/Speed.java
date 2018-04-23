@@ -88,7 +88,7 @@ public class Speed implements MqttCallback {
 
         System.out.println("Mqtt topic : " + topic);
         System.out.println("Mqtt msg : " + message.toString());
-        String correoR = topic.split(".")[3]+"@correo.com.co";
+        String correoR = topic.split("\\.")[3]+"@correo.com.co";
         String asunto = "NOTIFICACION ALARMA";
         String mensaje= message.toString();
         String correoD = correoR;
