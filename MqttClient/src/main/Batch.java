@@ -87,17 +87,17 @@ public class Batch implements MqttCallback {
 
         System.out.println("Mqtt topic : " + topic);
         System.out.println("Mqtt msg : " + message.toString());
-        String correoR = topic.split("/")[3]+"@correo.com.co";
+        String correoR = topic.split("\\.")[3]+"@correo.com.co";
         String asunto = "NOTIFICACION ALARMA";
         String mensaje= message.toString();
         String correoD = correoR;
-        String ciudad = topic.split("/")[1];
-        String residencia = topic.split("/")[2];
-        String inmueble = topic.split("/")[3];
+        String ciudad = topic.split("\\.")[1];
+        String residencia = topic.split("\\.")[2];
+        String inmueble = topic.split("\\.")[3];
         
         String peticion = "{\"cr\":\""+ correoR+"\", \"cd\":\"" +correoD+"\", \"asunto\":\""+asunto +"\", \"mensaje\":\""+mensaje+"\",\"ciudad\":\""+ciudad +"\",\"residencia\":\""+residencia+"\", \"inmueble\",\""+inmueble+"\"}";
         
-        URL url = new URL("http://172.24.42.22:8080/programaP");
+        URL url = new URL("http://172.24.42.66:8080/programaP");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
     	con.setRequestMethod("POST");
     	con.setRequestProperty("Content-Type", "application/json");
