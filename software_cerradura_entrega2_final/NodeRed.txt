@@ -1,0 +1,288 @@
+[
+    {
+        "id": "9f2e3cc4.16aeb",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9e5efbd8.ad6948",
+        "type": "mqtt in",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "topic": "colombia.bogota.residencia1.inmueble1.1.lector",
+        "qos": "2",
+        "broker": "11ee260.1983ada",
+        "x": 318.019588470459,
+        "y": 121.00390625,
+        "wires": [
+            [
+                "77038227.f2378c",
+                "69bbe8d1.d3f508"
+            ]
+        ]
+    },
+    {
+        "id": "77038227.f2378c",
+        "type": "debug",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 714.019588470459,
+        "y": 101.00390338897705,
+        "wires": []
+    },
+    {
+        "id": "69bbe8d1.d3f508",
+        "type": "serial out",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "serial": "ffb61282.c1b68",
+        "x": 711.882869720459,
+        "y": 167.52734088897705,
+        "wires": []
+    },
+    {
+        "id": "8cb8916e.1aa0c",
+        "type": "serial in",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "serial": "ffb61282.c1b68",
+        "x": 162.88677597045898,
+        "y": 374.25390243530273,
+        "wires": [
+            [
+                "859866da.374078",
+                "8c472003.0ff0b"
+            ]
+        ]
+    },
+    {
+        "id": "c50bce19.00e91",
+        "type": "function",
+        "z": "9f2e3cc4.16aeb",
+        "name": "HealthCheck Checker",
+        "func": "var input = msg.payload;\nvar res = {};\nvar date = new Date();\nif(input === \"TEST\")\n{\n    if(context.get('oldMinutes') === null)\n    {\n        context.set('oldMinutes', date.getMinutes());\n    }\n    var minutosOld = context.get('oldMinutes');\n    if((minutosOld + (2*1)) >= date.getMinutes())\n    {\n        res.payload = \"HEALTHCHECK CONFIRMED\";\n    }\n    else\n    {\n        res.payload = \"ERROR\";\n    }\n}\nelse if(input.includes(\"HEALTHCHECK\"))\n{\n    context.set('oldMinutes', date.getMinutes());\n    res.payload = \"HEALTHCHECK RECIEVED\";\n}\n\nreturn res;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 467.8907051086426,
+        "y": 242.9454002380371,
+        "wires": [
+            [
+                "b1e1681c.25be68",
+                "9e271035.0c325"
+            ]
+        ]
+    },
+    {
+        "id": "b1e1681c.25be68",
+        "type": "debug",
+        "z": "9f2e3cc4.16aeb",
+        "name": "Health Check Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 830.8829002380371,
+        "y": 217.6758155822754,
+        "wires": []
+    },
+    {
+        "id": "e55b3b11.80ce98",
+        "type": "inject",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "topic": "",
+        "payload": "TEST",
+        "payloadType": "str",
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 132.89849472045898,
+        "y": 247.42968463897705,
+        "wires": [
+            [
+                "c50bce19.00e91"
+            ]
+        ]
+    },
+    {
+        "id": "859866da.374078",
+        "type": "debug",
+        "z": "9f2e3cc4.16aeb",
+        "name": "Entrada Wiring",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 354.88286209106445,
+        "y": 455.675799369812,
+        "wires": []
+    },
+    {
+        "id": "8c472003.0ff0b",
+        "type": "switch",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "HEALTHCHECK",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "HEALTHCHECK",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 289.8829116821289,
+        "y": 312.80080699920654,
+        "wires": [
+            [
+                "c50bce19.00e91"
+            ],
+            [
+                "902f2005.4d8b1",
+                "40be7d28.e7cb94"
+            ]
+        ],
+        "outputLabels": [
+            "salida HealthCheck",
+            ""
+        ]
+    },
+    {
+        "id": "902f2005.4d8b1",
+        "type": "debug",
+        "z": "9f2e3cc4.16aeb",
+        "name": "Alertas",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 693.8828582763672,
+        "y": 437.6758003234863,
+        "wires": []
+    },
+    {
+        "id": "40be7d28.e7cb94",
+        "type": "mqtt out",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "topic": "colombia.bogota.residencia1.inmueble1.1.escritor",
+        "qos": "2",
+        "retain": "",
+        "broker": "11ee260.1983ada",
+        "x": 774.890682220459,
+        "y": 373.37504863739014,
+        "wires": []
+    },
+    {
+        "id": "ebd2073e.0c2e38",
+        "type": "mqtt out",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "topic": "colombia.bogota.residencia1.inmueble1.1.healthcheck",
+        "qos": "2",
+        "retain": "",
+        "broker": "11ee260.1983ada",
+        "x": 990.8828544616699,
+        "y": 306.63281440734863,
+        "wires": []
+    },
+    {
+        "id": "9e271035.0c325",
+        "type": "switch",
+        "z": "9f2e3cc4.16aeb",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ERROR",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "HEALTHCHECK CONFIRMED",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 660.886775970459,
+        "y": 312.80077838897705,
+        "wires": [
+            [
+                "ebd2073e.0c2e38"
+            ],
+            [
+                "ebd2073e.0c2e38"
+            ]
+        ]
+    },
+    {
+        "id": "11ee260.1983ada",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "172.24.42.100",
+        "port": "8083",
+        "tls": "6b943ad3.f2e274",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "ffb61282.c1b68",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "COM3",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": true
+    },
+    {
+        "id": "6b943ad3.f2e274",
+        "type": "tls-config",
+        "z": "",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "m2mqtt_ca.crt",
+        "verifyservercert": false
+    }
+]
