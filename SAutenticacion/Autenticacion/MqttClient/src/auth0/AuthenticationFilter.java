@@ -106,7 +106,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             String audience;
             //Access token
             if (!JWT.decode(token).getClaim("gty").isNull() && JWT.decode(token).getClaim("gty").asString().equals("client-credentials")) {
-                audience = "uniandes.edu.co/thermalcomfort";
+                audience = "uniandes.edu.co/MqttClient";
             }
             //ID token
             else {

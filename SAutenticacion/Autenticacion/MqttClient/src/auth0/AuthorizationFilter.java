@@ -118,7 +118,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
         if (!JWT.decode(token).getClaim("gty").isNull() && JWT.decode(token).getClaim("gty").asString().equals("client-credentials")) {
             roles.add("service");
         } else {
-            roles = JWT.decode(token).getClaim("http://thermalcomfort/roles").asList(String.class);
+            roles = JWT.decode(token).getClaim("http://MqttClient/roles").asList(String.class);
         }
         for(String role: roles) {
             if(allowedRoles.contains(Role.valueOf(role)))
