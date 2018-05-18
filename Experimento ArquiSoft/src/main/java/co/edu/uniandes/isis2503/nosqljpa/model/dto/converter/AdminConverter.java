@@ -22,6 +22,7 @@ public class AdminConverter implements IAdminConverter{
         AdminDTO dto = new AdminDTO();
         dto.setId(entity.getId());
         dto.setNombre(entity.getNombre());
+        dto.setCorreo(entity.getCorreo());
         dto.setResidencia(entity.getResidencia());
         return dto;
     }
@@ -31,6 +32,7 @@ public class AdminConverter implements IAdminConverter{
         AdminEntity entity = new AdminEntity();
         entity.setId(dto.getId());
         entity.setNombre(dto.getNombre());
+        entity.setCorreo(dto.getCorreo());
         entity.setResidencia(dto.getResidencia());
         return entity;
     }

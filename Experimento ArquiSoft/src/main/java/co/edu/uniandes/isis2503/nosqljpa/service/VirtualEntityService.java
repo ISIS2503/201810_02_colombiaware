@@ -16,9 +16,12 @@ import co.edu.uniandes.isis2503.nosqljpa.logic.VirtualEntityLogic;
 import co.edu.uniandes.isis2503.nosqljpa.logic.YaleLogic;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.VirtualEntityDTO;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.AdminConverter.CONVERTERA;
-import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ResidenciaConverter.CONVERTERR;
-import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.InmuebleConverter.CONVERTERI;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ClienteConverter.CONVERTER;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ContrasenaConverter.CONVERTERC;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.InmuebleConverter.CONVERTERI;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ResidenciaConverter.CONVERTERR;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ContrasenaDTO;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ResidenciaDTO;
 import com.sun.istack.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
@@ -77,7 +80,7 @@ public class VirtualEntityService {
     
     @GET
     @Path("/admin/{id}/residencia/{residencia}")
-    public List<VirtualEntityDTO> allResidencia(@PathParam("id") String id, @PathParam("residencia") String residencia){
+    public List<ResidenciaDTO> allResidencia(@PathParam("id") String id, @PathParam("residencia") String residencia){
         if(residenciaLogic.find(residencia).getAdmin() == CONVERTERA.dtoToEntity(adminLogic.find(id)))
             return virtualEntityLogic.allResidencia(residencia);
         else
@@ -98,7 +101,15 @@ public class VirtualEntityService {
         else
             return null;
     }
-
+    @GET
+    @Path("/inmueble/{inmueble}/contrasena/{contrasena}")
+    public Boolean contrasenaValida(@PathParam("inmueble") String inmueble,String contrasena) {
+        if(inmuebleLogic.find(inmueble).getContrasenaI().contains(contrasena)){
+            return true;
+    }
+        return false;
+    }
+    
     @GET
     public List<VirtualEntityDTO> all() {
         return virtualEntityLogic.all();

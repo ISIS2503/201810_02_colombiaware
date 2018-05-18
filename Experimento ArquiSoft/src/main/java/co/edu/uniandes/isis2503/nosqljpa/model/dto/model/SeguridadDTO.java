@@ -14,16 +14,26 @@ public class SeguridadDTO {
     
     @Id
     private String id;
+    private String correo;
     private List<InmuebleEntity> inmuebleS;
 
     public SeguridadDTO() {
     }
 
-    public SeguridadDTO(String id, List<InmuebleEntity> inmuebleS) {
+    public SeguridadDTO(String id, String correo, List<InmuebleEntity> inmuebleS) {
         this.id = id;
+        this.correo = correo;
         this.inmuebleS = inmuebleS;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+    
     public List<InmuebleEntity> getInmuebleS() {
         return inmuebleS;
     }

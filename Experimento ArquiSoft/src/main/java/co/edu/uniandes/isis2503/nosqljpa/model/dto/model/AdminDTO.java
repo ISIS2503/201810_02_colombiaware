@@ -13,17 +13,28 @@ public class AdminDTO {
     @Id
     private String id;
     private String nombre;
+    private String correo;
     private ResidenciaEntity residencia;
 
     public AdminDTO() {
     }
 
-    public AdminDTO(String id, String nombre, ResidenciaEntity residencia) {
+    public AdminDTO(String id, String nombre, String correo, ResidenciaEntity residencia) {
         this.id = id;
         this.nombre = nombre;
+        this.correo = correo;
         this.residencia = residencia;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    
     public ResidenciaEntity getResidencia() {
         return residencia;
     }

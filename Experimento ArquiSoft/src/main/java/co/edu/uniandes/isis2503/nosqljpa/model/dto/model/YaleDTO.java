@@ -15,17 +15,29 @@ public class YaleDTO {
     @Id
     private String id;
     private String nombreSupervisor;
+    private String correo;
     
     private List<ClienteEntity> clienteY;
 
     public YaleDTO() {
     }
 
-    public YaleDTO(String id, String nombreSupervisor, List<ClienteEntity> clienteY) {
+    public YaleDTO(String id, String nombreSupervisor, String correo, List<ClienteEntity> clienteY) {
         this.id = id;
         this.nombreSupervisor = nombreSupervisor;
+        this.correo = correo;
         this.clienteY = clienteY;
     }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    
 
     public List<ClienteEntity> getClienteY() {
         return clienteY;

@@ -21,6 +21,7 @@ public class SeguridadConverter implements ISeguridadConverter{
     public SeguridadDTO entityToDto(SeguridadEntity entity) {
         SeguridadDTO dto = new SeguridadDTO();
         dto.setId(entity.getId());
+        dto.setCorreo(entity.getCorreo());
         dto.setInmuebleS(entity.getInmuebleS());
         return dto;
     }
@@ -29,6 +30,7 @@ public class SeguridadConverter implements ISeguridadConverter{
     public SeguridadEntity dtoToEntity(SeguridadDTO dto) {
         SeguridadEntity entity = new SeguridadEntity();
         entity.setId(dto.getId());
+        entity.setCorreo(dto.getCorreo());
         entity.setInmuebleS(dto.getInmuebleS());
         return entity;
     }

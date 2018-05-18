@@ -1,7 +1,7 @@
 package co.edu.uniandes.isis2503.nosqljpa.interfaces;
 
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ContrasenaDTO;
-import co.edu.uniandes.isis2503.nosqljpa.model.entity.ContrasenaEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.PasswordEntity;
 import java.util.List;
 
 /**
@@ -9,12 +9,12 @@ import java.util.List;
  * @author ks.estupinan
  */
 public interface IContrasenaConverter {
-    public ContrasenaDTO entityToDto(ContrasenaEntity entity);
+    public ContrasenaDTO entityToDto(PasswordEntity entity);
 
-    public ContrasenaEntity dtoToEntity(ContrasenaDTO dto);
+    public PasswordEntity dtoToEntity(ContrasenaDTO dto);
 
-    public List<ContrasenaDTO> listEntitiesToListDTOs(List<ContrasenaEntity> entities);
+    public List<ContrasenaDTO> listEntitiesToListDTOs(List<PasswordEntity> entities);
 
-    public List<ContrasenaEntity> listDTOsToListEntities(List<ContrasenaDTO> dtos);
+    public List<PasswordEntity> listDTOsToListEntities(List<ContrasenaDTO> dtos);
     
 }

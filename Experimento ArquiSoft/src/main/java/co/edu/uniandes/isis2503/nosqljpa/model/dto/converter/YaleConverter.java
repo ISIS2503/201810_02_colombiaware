@@ -22,6 +22,7 @@ public class YaleConverter implements IYaleConverter{
         YaleDTO dto = new YaleDTO();
         dto.setId(entity.getId());
         dto.setNombreSupervisor(entity.getNombreSupervisor());
+        dto.setCorreo(entity.getCorreo());
         dto.setClienteY(entity.getClienteY());
         return dto;
     }
@@ -31,6 +32,7 @@ public class YaleConverter implements IYaleConverter{
         YaleEntity entity = new YaleEntity();
         entity.setId(dto.getId());
         entity.setNombreSupervisor(dto.getNombreSupervisor());
+        entity.setCorreo(dto.getCorreo());
         entity.setClienteY(dto.getClienteY());
         return entity;
     }

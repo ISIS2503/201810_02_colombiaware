@@ -1,14 +1,37 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2018 Universidad De Los Andes - Departamento de Ingeniería de Sistemas.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package co.edu.uniandes.isis2503.nosqljpa.service;
 
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IClienteLogic;
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IContrasenaLogic;
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IInmuebleLogic;
 import co.edu.uniandes.isis2503.nosqljpa.logic.ClienteLogic;
-import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.InmuebleConverter.CONVERTERI;
-import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ClienteConverter.CONVERTER;
-import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ContrasenaConverter.CONVERTERC;
 import co.edu.uniandes.isis2503.nosqljpa.logic.ContrasenaLogic;
 import co.edu.uniandes.isis2503.nosqljpa.logic.InmuebleLogic;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ClienteConverter.CONVERTER;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ContrasenaConverter.CONVERTERC;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.InmuebleConverter.CONVERTERI;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ClienteDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ContrasenaDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.InmuebleDTO;
@@ -33,18 +56,17 @@ import javax.ws.rs.core.Response;
 @Path("/cliente")
 @Consumes
 @Produces(MediaType.APPLICATION_JSON)
-public class ClienteService {
-    
+public class clienteService {
     private final IClienteLogic clienteLogic;
     private final IContrasenaLogic contrasenaLogic;
     private final IInmuebleLogic inmuebleLogic;
 
-    public ClienteService() {
+    public clienteService() {
         this.clienteLogic = new ClienteLogic();
         this.contrasenaLogic = new ContrasenaLogic();
         this.inmuebleLogic = new InmuebleLogic();
     }
-
+    
     @POST
     public ClienteDTO add(ClienteDTO dto) {
         return clienteLogic.add(dto);
@@ -53,9 +75,7 @@ public class ClienteService {
     @POST
     @Path("/{id}/inmueble/{inmueble}/contrasena")
     public ContrasenaDTO add(@PathParam("id") String id, @PathParam("inmueble") String inmueble,ContrasenaDTO dto) {
-        dto.setClienteC(CONVERTER.dtoToEntity(clienteLogic.find(id)));
         dto.setInmuebleC(CONVERTERI.dtoToEntity(inmuebleLogic.find(id)));
-        clienteLogic.find(id).setContrasena(CONVERTERC.dtoToEntity(dto));
         inmuebleLogic.find(id).setContrasena(CONVERTERC.dtoToEntity(dto));
         return contrasenaLogic.add(dto);
     }
@@ -78,11 +98,17 @@ public class ClienteService {
     }
     
     @GET
-    @Path("/inmueble/{inmueble}")
-    public ContrasenaDTO allContrasena(@PathParam("inmueble") String inmueble){
-       // return clienteLogic.all(inmueble);
-       return null;
+    @Path("/contrasena/{contrasena}")
+    public ContrasenaDTO allContrasena(@PathParam("id") String id,@PathParam("contrasena") String contrasena){
+       return clienteLogic.allContrasena(contrasena);
     }
+    
+//    @GET
+//    @Path("/{id}/contrasena/{contrasena}")
+//    public List<ContrasenaDTO> allContrasenaMes(@PathParam("id") String id){
+//       return CONVERTERC.listEntitiesToListDTOs(clienteLogic.find(id).getContrasenaC());
+//    }
+    
     @GET
     public List<ClienteDTO> all() {
         return clienteLogic.all();
@@ -95,7 +121,7 @@ public class ClienteService {
             clienteLogic.delete(id);
             return Response.status(200).header("Access-Control-Allow-Origin", "*").entity("Sucessful: Floor was deleted").build();
         } catch (Exception e) {
-            Logger.getLogger(ClienteService.class).log(Level.WARNING, e.getMessage());
+            Logger.getLogger(clienteService.class).log(Level.WARNING, e.getMessage());
             return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
         }
     }

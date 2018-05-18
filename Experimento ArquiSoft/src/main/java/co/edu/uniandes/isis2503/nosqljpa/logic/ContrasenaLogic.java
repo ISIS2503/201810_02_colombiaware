@@ -3,7 +3,7 @@ package co.edu.uniandes.isis2503.nosqljpa.logic;
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IContrasenaLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ContrasenaConverter.CONVERTERC;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ContrasenaDTO;
-import co.edu.uniandes.isis2503.nosqljpa.model.entity.ContrasenaEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.PasswordEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.ContrasenaPersistence;
 import java.util.List;
 import java.util.UUID;
@@ -21,19 +21,19 @@ public class ContrasenaLogic implements IContrasenaLogic{
     }
     public String contraseniasWiring(String horario)
     {
-        ContrasenaEntity contra= persistence.buscarPorHorarioInicial(horario);
-        ContrasenaEntity contra2= persistence.buscarPorHorarioFinal(horario);
+        PasswordEntity contra= persistence.buscarPorHorarioInicial(horario);
+        PasswordEntity contra2= persistence.buscarPorHorarioFinal(horario);
         String resp;
         if(contra!=null)
         {
         String idC = contra.getId();
-        String contrasenia = contra.getContrasena();
+        String contrasenia = contra.getPassword();
         resp = "agregar:"+idC+":"+contrasenia;
         }
         else if(contra2!=null)
         {
         String idC = contra2.getId();
-        String contrasenia = contra2.getContrasena();
+        String contrasenia = contra2.getPassword();
         resp = "borrar:"+idC+":"+contrasenia;
         }
         else

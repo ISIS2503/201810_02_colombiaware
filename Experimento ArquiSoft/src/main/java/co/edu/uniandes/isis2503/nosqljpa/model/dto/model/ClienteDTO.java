@@ -1,6 +1,6 @@
 package co.edu.uniandes.isis2503.nosqljpa.model.dto.model;
 
-import co.edu.uniandes.isis2503.nosqljpa.model.entity.ContrasenaEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.PasswordEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.InmuebleEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.YaleEntity;
 import java.util.List;
@@ -22,19 +22,16 @@ public class ClienteDTO {
     private InmuebleEntity inmueble;
     
     private YaleEntity yaleC;
-    
-    private List<ContrasenaEntity> contrasenaC;
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(String id, String nombre, String correo, InmuebleEntity inmueble, YaleEntity yaleC, List<ContrasenaEntity> contrasenaC) {
+    public ClienteDTO(String id, String nombre, String correo, InmuebleEntity inmueble, YaleEntity yaleC) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.inmueble = inmueble;
         this.yaleC = yaleC;
-        this.contrasenaC = contrasenaC;
     }
 
     public InmuebleEntity getInmueble() {
@@ -53,19 +50,6 @@ public class ClienteDTO {
         this.yaleC = yaleC;
     }
 
-    public List<ContrasenaEntity> getContrasenaC() {
-        return contrasenaC;
-    }
-
-    public void setContrasenaC(List<ContrasenaEntity> contrasenaC) {
-        this.contrasenaC = contrasenaC;
-    }
-    
-    public void setContrasena(ContrasenaEntity contrasenaC) {
-        this.contrasenaC.add(contrasenaC);
-    }
-
-    
     public String getId() {
         return id;
     }

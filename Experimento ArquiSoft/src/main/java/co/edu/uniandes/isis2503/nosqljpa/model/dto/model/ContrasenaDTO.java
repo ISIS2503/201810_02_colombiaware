@@ -17,30 +17,31 @@ public class ContrasenaDTO {
     private String contrasena;
     private String horarioInicio;
     private String horarioFin;
+    private String[] dias;
 
-    private ClienteEntity clienteC;
     private InmuebleEntity inmuebleC;
     
     public ContrasenaDTO() {
+        dias = new String[7];
     }
 
-    public ContrasenaDTO(String id, String contrasena, String horarioInicio, String horarioFin, ClienteEntity clienteC, InmuebleEntity inmuebleC) {
+    public ContrasenaDTO(String id, String contrasena, String horarioInicio, String horarioFin, String[] dias, InmuebleEntity inmuebleC) {
         this.id = id;
         this.contrasena = contrasena;
         this.horarioInicio = horarioInicio;
         this.horarioFin = horarioFin;
-        this.clienteC = clienteC;
+        this.dias = dias;
         this.inmuebleC = inmuebleC;
     }
 
-    public ClienteEntity getClienteC() {
-        return clienteC;
+    public String[] getDias() {
+        return dias;
     }
 
-    public void setClienteC(ClienteEntity clienteC) {
-        this.clienteC = clienteC;
+    public void setDias(String[] dias) {
+        this.dias = dias;
     }
-
+    
     public InmuebleEntity getInmuebleC() {
         return inmuebleC;
     }

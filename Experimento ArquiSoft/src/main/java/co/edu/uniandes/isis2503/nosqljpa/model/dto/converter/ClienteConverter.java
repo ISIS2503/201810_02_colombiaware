@@ -25,7 +25,6 @@ public class ClienteConverter implements IClienteConverter{
         dto.setCorreo(entity.getCorreo());
         dto.setInmueble(entity.getInmueble());
         dto.setYaleC(entity.getYaleC());
-        dto.setContrasenaC(entity.getContrasenaC());
         return dto;
     }
 
@@ -35,6 +34,8 @@ public class ClienteConverter implements IClienteConverter{
         entity.setId(dto.getId());
         entity.setNombre(dto.getNombre());
         entity.setCorreo(dto.getCorreo());
+        entity.setInmueble(dto.getInmueble());
+        entity.setYaleC(dto.getYaleC());
         return entity;
     }
 

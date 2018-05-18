@@ -1,20 +1,46 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2017 Universidad De Los Andes - Departamento de Ingeniería de Sistemas.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package co.edu.uniandes.isis2503.nosqljpa.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.DynamicUpdate;
 
 /**
  *
  * @author ks.estupinan
  */
 @Entity
-@Table(name = "Inmueble")
+@Table(name = "INMUEBLE")
 public class InmuebleEntity implements Serializable{
     
     @Id
@@ -22,38 +48,40 @@ public class InmuebleEntity implements Serializable{
     private String direccion;
     private String torre;
     private String numero;
+    private String idDispositivo;
 
-    @OneToOne(mappedBy="inmueble")
+    @OneToOne
     private ClienteEntity cliente;
     
-    @ManyToOne()
+    @ManyToOne
     private ResidenciaEntity residenciaI;
     
-    @ManyToOne()
+    @ManyToOne
     private SeguridadEntity seguridadI;
     
-    @OneToMany(mappedBy="inmuebleC")
-    private List<ContrasenaEntity> contrasenaI;
+    @OneToMany(mappedBy="inmuebleC", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<PasswordEntity> contrasenaI;
     
     public InmuebleEntity() {
     }
 
-    public InmuebleEntity(String id, String direccion, String torre, String numero, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<ContrasenaEntity> contrasenaI) {
+    public InmuebleEntity(String id, String direccion, String torre, String numero, String idDispositivo, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<PasswordEntity> contrasenaI) {
         this.id = id;
         this.direccion = direccion;
         this.torre = torre;
         this.numero = numero;
+        this.idDispositivo = idDispositivo;
         this.cliente = cliente;
         this.residenciaI = residenciaI;
         this.seguridadI = seguridadI;
         this.contrasenaI = contrasenaI;
     }
-
-    public List<ContrasenaEntity> getContrasenaI() {
+    
+    public List<PasswordEntity> getContrasenaI() {
         return contrasenaI;
     }
 
-    public void setContrasenaI(List<ContrasenaEntity> contrasenaI) {
+    public void setContrasenaI(List<PasswordEntity> contrasenaI) {
         this.contrasenaI = contrasenaI;
     }
 
@@ -113,6 +141,14 @@ public class InmuebleEntity implements Serializable{
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public String getIdDispositivo() {
+        return idDispositivo;
+    }
+
+    public void setIdDispositivo(String idDispositivo) {
+        this.idDispositivo = idDispositivo;
     }
     
 }

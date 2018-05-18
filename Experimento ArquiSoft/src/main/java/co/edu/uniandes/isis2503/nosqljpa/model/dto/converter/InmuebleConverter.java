@@ -28,6 +28,7 @@ public class InmuebleConverter implements IInmuebleConverter{
         dto.setResidenciaI(entity.getResidenciaI());
         dto.setSeguridadI(entity.getSeguridadI());
         dto.setContrasenaI(entity.getContrasenaI());
+        dto.setIdDispositivo(entity.getIdDispositivo());
         return dto;
     }
 
@@ -42,6 +43,7 @@ public class InmuebleConverter implements IInmuebleConverter{
         entity.setResidenciaI(dto.getResidenciaI());
         entity.setSeguridadI(dto.getSeguridadI());
         entity.setContrasenaI(dto.getContrasenaI());
+        entity.setIdDispositivo(dto.getIdDispositivo());
         return entity;
     }
 

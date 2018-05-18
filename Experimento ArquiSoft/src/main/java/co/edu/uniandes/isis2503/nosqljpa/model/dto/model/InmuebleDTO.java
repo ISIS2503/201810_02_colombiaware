@@ -2,7 +2,7 @@ package co.edu.uniandes.isis2503.nosqljpa.model.dto.model;
 
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.AdminEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.ClienteEntity;
-import co.edu.uniandes.isis2503.nosqljpa.model.entity.ContrasenaEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.PasswordEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.ResidenciaEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.SeguridadEntity;
 import java.util.List;
@@ -21,26 +21,36 @@ public class InmuebleDTO {
     private String direccion;
     private String torre;
     private String numero;
+    private String idDispositivo;
     
     private ClienteEntity cliente;
     private ResidenciaEntity residenciaI;
     private SeguridadEntity seguridadI;
-    private List<ContrasenaEntity> contrasenaI;
+    private List<PasswordEntity> contrasenaI;
 
     public InmuebleDTO() {
     }
 
-    public InmuebleDTO(String id, String direccion, String torre, String numero, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<ContrasenaEntity> contrasenaI) {
+    public InmuebleDTO(String id, String direccion, String torre, String numero, String idDispositivo, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<PasswordEntity> contrasenaI) {
         this.id = id;
         this.direccion = direccion;
         this.torre = torre;
         this.numero = numero;
+        this.idDispositivo = idDispositivo;
         this.cliente = cliente;
         this.residenciaI = residenciaI;
         this.seguridadI = seguridadI;
         this.contrasenaI = contrasenaI;
     }
 
+    public String getIdDispositivo() {
+        return idDispositivo;
+    }
+
+    public void setIdDispositivo(String idDispositivo) {
+        this.idDispositivo = idDispositivo;
+    }
+    
     public ClienteEntity getCliente() {
         return cliente;
     }
@@ -65,14 +75,14 @@ public class InmuebleDTO {
         this.seguridadI = seguridadI;
     }
 
-    public List<ContrasenaEntity> getContrasenaI() {
+    public List<PasswordEntity> getContrasenaI() {
         return contrasenaI;
     }
 
-    public void setContrasenaI(List<ContrasenaEntity> contrasenaI) {
+    public void setContrasenaI(List<PasswordEntity> contrasenaI) {
         this.contrasenaI = contrasenaI;
     }
-    public void setContrasena(ContrasenaEntity contrasenaI) {
+    public void setContrasena(PasswordEntity contrasenaI) {
         this.contrasenaI.add(contrasenaI);
     }
     

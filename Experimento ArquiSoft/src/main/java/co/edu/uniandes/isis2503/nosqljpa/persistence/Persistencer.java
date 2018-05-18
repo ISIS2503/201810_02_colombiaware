@@ -1,5 +1,6 @@
 package co.edu.uniandes.isis2503.nosqljpa.persistence;
 
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ResidenciaEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,8 +127,8 @@ public class Persistencer<T, PK> {
         return entities;
     }
     
-    public List<T> findResidencia(String resindencia){
-        List<T> entities;
+    public List<ResidenciaEntity> findResidencia(String resindencia){
+        List<ResidenciaEntity> entities;
         String queryString = "Select c FROM " + entityClass.getSimpleName() + " c where c.residencia = :residencia1";
         Query query = entityManager.createQuery(queryString).setParameter("residencia1", resindencia);
         try {

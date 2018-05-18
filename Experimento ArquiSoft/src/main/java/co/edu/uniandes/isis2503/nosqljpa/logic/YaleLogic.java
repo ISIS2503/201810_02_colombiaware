@@ -2,6 +2,8 @@ package co.edu.uniandes.isis2503.nosqljpa.logic;
 
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IYaleLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.YaleConverter.CONVERTER;
+import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ResidenciaConverter.CONVERTERR;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ResidenciaDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.YaleDTO;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.YalePersistence;
 import java.util.List;
@@ -40,8 +42,8 @@ public class YaleLogic implements IYaleLogic{
     }
     
     @Override
-    public List<YaleDTO> allResidencia(String residencia) {
-        return CONVERTER.listEntitiesToListDTOs(persistence.findResidencia(residencia));
+    public List<ResidenciaDTO> allResidencia(String residencia) {
+        return CONVERTERR.listEntitiesToListDTOs(persistence.findResidencia(residencia));
     }
     
     @Override
