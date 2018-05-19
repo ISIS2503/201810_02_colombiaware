@@ -51,7 +51,7 @@ public class PasswordEntity implements Serializable {
     private InmuebleEntity inmuebleC;
 
     public PasswordEntity() {
-        dias = new String[7];
+        //dias = new String[7];
     }
     //arreglo de dias[] lunes martes miercoles jueves viernes
 

@@ -21,6 +21,7 @@ import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ClienteDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.InmuebleDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ResidenciaDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.SeguridadDTO;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.YaleDTO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -61,6 +62,18 @@ public class YaleServices {
     }
     
     @POST
+    @Path("/sup")
+    public YaleDTO add(YaleDTO dto) {
+        return yaleLogic.add(dto);
+    }
+    
+    @GET
+    @Path("/sup")
+    public List<YaleDTO> findAllSup() {
+        return yaleLogic.all();
+    }
+    
+    @POST
     @Path("/admin")
     public AdminDTO add(AdminDTO dto) {
         return adminLogic.add(dto);
@@ -88,7 +101,7 @@ public class YaleServices {
         return inmuebleLogic.add(dto);
     }
     
-     @POST
+    @POST
     @Path("/residencia/{idR}/cliente/{idC}/inmueble")
     public InmuebleDTO addI(@PathParam("idR") String idR,@PathParam("idC") String idC,InmuebleDTO dto) {
         dto.setCliente(CONVERTER.dtoToEntity(clienteLogic.find(idC)));
@@ -104,11 +117,25 @@ public class YaleServices {
         return seguridadLogic.add(dto);
     }
     
+//    @POST
+//    @Path("/residencia/{idR}/seguridad")
+//    public SeguridadDTO add(@PathParam("idR") String idR, SeguridadDTO dto) {
+//        dto.se(CONVERTER.dtoToEntity(clienteLogic.find(idC)));
+//        dto.setResidenciaI(CONVERTERR.dtoToEntity(residenciaLogic.find(idR)));
+//        return seguridadLogic.add(dto);
+//    }
+    
     @PUT
     public ClienteDTO update(ClienteDTO dto) {
         return clienteLogic.update(dto);
     }
 
+    @GET
+    @Path("/admin")
+    public List<AdminDTO> findAllAdmin() {
+        return adminLogic.all();
+    }
+    
     @GET
     @Path("/{id}")
     public ClienteDTO find(@PathParam("id") String id) {

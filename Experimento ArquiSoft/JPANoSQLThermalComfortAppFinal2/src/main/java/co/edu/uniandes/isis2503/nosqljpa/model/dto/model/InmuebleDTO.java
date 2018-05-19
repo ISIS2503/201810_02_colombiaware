@@ -5,6 +5,7 @@ import co.edu.uniandes.isis2503.nosqljpa.model.entity.ClienteEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.PasswordEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.ResidenciaEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.SeguridadEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +27,7 @@ public class InmuebleDTO {
     private ClienteEntity cliente;
     private ResidenciaEntity residenciaI;
     private SeguridadEntity seguridadI;
-    private List<PasswordEntity> contrasenaI;
+    private List<PasswordEntity> contrasenaI = new ArrayList<PasswordEntity>();
 
     public InmuebleDTO() {
     }

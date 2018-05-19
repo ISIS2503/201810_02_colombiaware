@@ -45,7 +45,7 @@ public class YaleEntity  implements Serializable {
     private String nombreSupervisor;
     private String correo;
 
-    @OneToMany(mappedBy = "yaleC", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "yaleC", fetch = FetchType.LAZY)
     private List<ClienteEntity> clienteY;
     
     public YaleEntity() {
