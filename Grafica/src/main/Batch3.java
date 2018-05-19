@@ -13,10 +13,10 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-public class Batch implements MqttCallback {
+public class Batch3 implements MqttCallback {
 	
     /** The broker url. */
-    private static final String brokerUrl = "tcp://172.24.42.69:8083";
+    private static final String brokerUrl = "tcp://172.24.42.100:8083";
 
     /** The client id. */
     private static final String clientId = "Batch";
@@ -31,7 +31,7 @@ public class Batch implements MqttCallback {
      */
     public static void main(String[] args) {
 
-        new Batch().subscribe(topic);
+        new Batch3().subscribe(topic);
     }
 
     /**
@@ -106,12 +106,7 @@ public class Batch implements MqttCallback {
     	ss.write(peticion.toString().getBytes());
     	ss.flush();
     	ss.close();
-    
-        
-        
-        
-         
-     
+
         
     }
 

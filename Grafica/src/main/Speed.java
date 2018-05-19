@@ -13,13 +13,13 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-public class Batch implements MqttCallback {
+public class Speed implements MqttCallback {
 	
     /** The broker url. */
-    private static final String brokerUrl = "tcp://172.24.42.69:8083";
+    private static final String brokerUrl = "tcp://172.24.42.100:8083";
 
     /** The client id. */
-    private static final String clientId = "Batch";
+    private static final String clientId = "Speed";
 
     /** The topic. */
     private static final String topic = "#";
@@ -31,7 +31,7 @@ public class Batch implements MqttCallback {
      */
     public static void main(String[] args) {
 
-        new Batch().subscribe(topic);
+        new Speed().subscribe(topic);
     }
 
     /**
@@ -84,6 +84,7 @@ public class Batch implements MqttCallback {
     }
     
     public void messageArrived(String topic, MqttMessage message) throws Exception {
+    	 
 
         System.out.println("Mqtt topic : " + topic);
         System.out.println("Mqtt msg : " + message.toString());
@@ -91,22 +92,21 @@ public class Batch implements MqttCallback {
         String asunto = "NOTIFICACION ALARMA";
         String mensaje= message.toString();
         String correoD = correoR;
-        String ciudad = topic.split("\\.")[1];
-        String residencia = topic.split("\\.")[2];
-        String inmueble = topic.split("\\.")[3];
-        
-        String peticion = "{\"cr\":\""+ correoR+"\", \"cd\":\"" +correoD+"\", \"asunto\":\""+asunto +"\", \"mensaje\":\""+mensaje+"\",\"ciudad\":\""+ciudad +"\",\"residencia\":\""+residencia+"\", \"inmueble\",\""+inmueble+"\"}";
-        
-        URL url = new URL("http://172.24.42.66:8080/programaP");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    	con.setRequestMethod("POST");
-    	con.setRequestProperty("Content-Type", "application/json");
-    	con.setDoOutput(true);
-    	OutputStream ss = con.getOutputStream();
-    	ss.write(peticion.toString().getBytes());
-    	ss.flush();
-    	ss.close();
-    
+     
+         	
+
+        String peticion2 = "{\"correoR\":\""+ correoR+"\", \"correoD\":\""+correoD+"\", \"asunto\":\""+asunto +"\", \"mensaje\":\""+mensaje+"\""+"}";
+        System.out.println(peticion2);
+    	URL url2 = new URL("http://172.24.42.100:8080/programaE");
+        HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+    	con2.setRequestMethod("POST");
+    	con2.setRequestProperty("Content-Type", "application/text");
+    	con2.setDoOutput(true);
+    	OutputStream ss2 = con2.getOutputStream();
+    	ss2.write(peticion2.toString().getBytes());
+    	ss2.flush();
+    	ss2.close();
+    	
         
         
         
