@@ -1,12 +1,19 @@
 [
     {
+        "id": "9f2e3cc4.16aeb",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "9e5efbd8.ad6948",
         "type": "mqtt in",
         "z": "9f2e3cc4.16aeb",
         "name": "",
         "topic": "colombia.bogota.residencia1.inmueble1.1.lector",
         "qos": "2",
-        "broker": "51b46044.9d767",
+        "broker": "463ea16b.ed638",
         "x": 318.019588470459,
         "y": 121.00390625,
         "wires": [
@@ -180,7 +187,7 @@
         "topic": "colombia.bogota.residencia1.inmueble1.1.escritor",
         "qos": "2",
         "retain": "",
-        "broker": "51b46044.9d767",
+        "broker": "463ea16b.ed638",
         "x": 774.890682220459,
         "y": 373.37504863739014,
         "wires": []
@@ -193,9 +200,9 @@
         "topic": "colombia.bogota.residencia1.inmueble1.1.healthcheck",
         "qos": "2",
         "retain": "false",
-        "broker": "51b46044.9d767",
-        "x": 990.8828544616699,
-        "y": 306.63281440734863,
+        "broker": "463ea16b.ed638",
+        "x": 977.8828735351562,
+        "y": 312.6328229904175,
         "wires": []
     },
     {
@@ -245,16 +252,14 @@
         "wires": []
     },
     {
-        "id": "51b46044.9d767",
+        "id": "463ea16b.ed638",
         "type": "mqtt-broker",
         "z": "",
         "name": "",
-        "broker": "192.168.0.12",
+        "broker": "172.24.42.69",
         "port": "8083",
-        "tls": "6b943ad3.f2e274",
         "clientid": "",
-        "usetls": true,
-        "verifyservercert": false,
+        "usetls": false,
         "compatmode": true,
         "keepalive": "60",
         "cleansession": true,
@@ -278,18 +283,5 @@
         "bin": "false",
         "out": "char",
         "addchar": true
-    },
-    {
-        "id": "6b943ad3.f2e274",
-        "type": "tls-config",
-        "z": "",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "C:\\Users\\ASUS\\Documents\\Archivos Universidad\\Sexto semestre 201810\\Arquitectura y diseño de Software\\NodeAute\\m2mqtt_ca.crt",
-        "certname": "",
-        "keyname": "",
-        "caname": "m2mqtt_ca.crt",
-        "verifyservercert": false
     }
 ]
