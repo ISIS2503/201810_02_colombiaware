@@ -29,8 +29,8 @@ public class HealthCheck implements MqttCallback {
 	private static final String topic = "#";
 
 	private int lost = 0;
-	private final int MAX_LOST = 3;
-	private final int TIME_HEALTH_CHECK = 2000;
+	private final int MAX_LOST = 2;
+	private final int TIME_HEALTH_CHECK = 60000;
 	private List<Hilo> hilos = new ArrayList<>();
 
 	/**
@@ -159,7 +159,7 @@ public class HealthCheck implements MqttCallback {
 						     ss.write(this.identificador.toString().getBytes());
 						     ss.flush();
 						     ss.close();
-						     enviarMensaje("HEALTHCHECK CONFIRMED",topico );
+						     enviarMensaje("HEALTHCHECK FAILED",topico );
 						    hilos.removeIf(x -> x.identificador.equals(identificador));
 						    System.gc();
 						}

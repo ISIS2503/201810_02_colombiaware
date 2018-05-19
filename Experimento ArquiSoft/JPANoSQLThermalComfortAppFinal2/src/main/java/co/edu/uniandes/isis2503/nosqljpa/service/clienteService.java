@@ -75,13 +75,9 @@ public class clienteService {
     @POST
     @Path("/inmueble/{inmueble}/contrasena")
     public ContrasenaDTO add(@PathParam("inmueble") String inmueble,ContrasenaDTO dto) {
-        InmuebleDTO im = inmuebleLogic.find(inmueble);
-        ContrasenaDTO con = dto;
-        con.setInmuebleC(CONVERTERI.dtoToEntity(im));
-        im.setContrasena(CONVERTERC.dtoToEntity(con));
-//        dto.setInmuebleC(CONVERTERI.dtoToEntity(inmuebleLogic.find(inmueble)));
-//        inmuebleLogic.find(inmueble).setContrasena(CONVERTERC.dtoToEntity(dto));
-        return contrasenaLogic.add(con);
+        dto.setInmuebleC(CONVERTERI.dtoToEntity(inmuebleLogic.find(inmueble)));
+        inmuebleLogic.find(inmueble).setContrasena(CONVERTERC.dtoToEntity(dto));
+        return contrasenaLogic.add(dto);
     }
     
     @PUT
