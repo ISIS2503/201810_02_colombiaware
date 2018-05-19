@@ -360,7 +360,7 @@ void doorChecker(int openingMethod)
 	{
           setRedStatus(true);
           //Serial.println("Door opened too much time!!");
-          if(DOOR_ALARM_FIRST_TIME_CONTROL||(millis()-timeForNextSerialAlarm)>=5000)
+          if(DOOR_ALARM_FIRST_TIME_CONTROL||(millis()-timeForNextSerialAlarm)>=10000)
           {
             DOOR_ALARM_FIRST_TIME_CONTROL = false;
             timeForNextSerialAlarm = millis();
