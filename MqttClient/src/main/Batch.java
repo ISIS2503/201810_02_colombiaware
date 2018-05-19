@@ -16,7 +16,7 @@ import java.net.URL;
 public class Batch implements MqttCallback {
 	
     /** The broker url. */
-    private static final String brokerUrl = "tcp://172.24.42.100:8083";
+    private static final String brokerUrl = "tcp://172.24.42.69:8083";
 
     /** The client id. */
     private static final String clientId = "Batch";
