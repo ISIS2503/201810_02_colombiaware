@@ -117,6 +117,7 @@ public class Batch implements MqttCallback {
 
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 
+		String inmueble1 = topic.split("\\.")[3];
 		if(!topic.contains("healthcheck") & !message.toString().contains("HEALTHCHECK")) {
 		System.out.println("Mqtt topic : " + topic);
 		System.out.println("Mqtt msg : " + message.toString());
@@ -177,6 +178,19 @@ public class Batch implements MqttCallback {
 			is.actualizar(LOW_BATTERY+":::"+inmueble);
 		}
 		
+		
+		}
+		else if(message.toString().contains("HEALTHCHECK FAILED"))
+		{
+			hubFL.add(inmueble1);
+			todasAlertas.add("HEALTHCHECK FAILED"+":::"+inmueble1);
+			is.actualizar("HEALTHCHECK FAILED"+":::"+inmueble1);
+		}
+		else if(message.toString().contains("ERROR"))
+		{
+			cerraduraFL.add(inmueble1);
+			todasAlertas.add("ERROR"+":::"+inmueble1);
+			is.actualizar("ERROR"+":::"+inmueble1);
 		}
 
 	}
