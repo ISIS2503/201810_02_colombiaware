@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Batch implements MqttCallback {
 
 
-	private static final String brokerUrl = "tcp://157.253.154.50:8083";
+	private static final String brokerUrl = "tcp://172.24.42.69:8083";
 
 	private static final String clientId = "up";
 	public static final String PUERTA_ABIERTA = "PA";
@@ -35,14 +35,14 @@ public class Batch implements MqttCallback {
 
 	private static final String topic = "#";
 
-	public static ArrayList<String> todasAlertas = new ArrayList<>();
-	
+	public static ArrayList<String> todasAlertas = new ArrayList<>();	
 	public static ArrayList<String> puertaAbierta = new ArrayList<>();
 	public static ArrayList<String> aperturaNP = new ArrayList<>();
 	public static ArrayList<String> aperturaS = new ArrayList<>();
 	public static ArrayList<String> bateriaC = new ArrayList<>();
 	public static ArrayList<String> cerraduraFL = new ArrayList<>();
 	public static ArrayList<String> hubFL = new ArrayList<>();
+	public static ArrayList<String> movimiento = new ArrayList<>();
 
 
 
@@ -117,9 +117,12 @@ public class Batch implements MqttCallback {
 
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 
+		if(!topic.contains("healthcheck") & !message.toString().contains("HEALTHCHECK")) {
 		System.out.println("Mqtt topic : " + topic);
 		System.out.println("Mqtt msg : " + message.toString());
-		String asunto= message.toString();
+		String asunto1= message.toString().split(":")[2];
+		String asunto = asunto1.substring(1, asunto1.length()-4);
+		System.out.println(asunto);
 		String inmueble = topic.split("\\.")[3];
 
 		if(asunto.equals(PUERTA_ABIERTA))
@@ -153,6 +156,27 @@ public class Batch implements MqttCallback {
 			cerraduraFL.add(inmueble);
 			todasAlertas.add(CERRADURA_IN+":::"+inmueble);
 			is.actualizar(CERRADURA_IN+":::"+inmueble);
+		}
+
+		else if(asunto.equals("motion detected"))
+		{
+			movimiento.add(inmueble);
+			todasAlertas.add("motion detected"+":::"+inmueble);
+			is.actualizar(CERRADURA_IN+":::"+inmueble);
+		}
+		else if(asunto.equals("long opening"))
+		{
+			puertaAbierta.add(inmueble);
+			todasAlertas.add("puerta abierta"+":::"+inmueble);
+			is.actualizar(CERRADURA_IN+":::"+inmueble);
+		}
+		else if(asunto.equals(LOW_BATTERY))
+		{
+			bateriaC.add(inmueble);
+			todasAlertas.add("low batery"+":::"+inmueble);
+			is.actualizar(LOW_BATTERY+":::"+inmueble);
+		}
+		
 		}
 
 	}

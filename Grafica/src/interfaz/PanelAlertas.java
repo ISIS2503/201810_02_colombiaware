@@ -111,7 +111,7 @@ public class PanelAlertas extends JPanel implements ActionListener
     
     private String mensage(String tipo) {
 		if(tipo.equals(Batch.PUERTA_ABIERTA)) {
-			return "La puesta se ha dejado mucho timepo abierta";
+			return "La puerta se ha dejado mucho timepo abierta";
 		} else if(tipo.equals(Batch.APERTURA_SOSPECHOSA)) {
 			return "Alguien ha intentado abrir la puesta";
 		} else if(tipo.equals(Batch.ACCESO_NP)) {
