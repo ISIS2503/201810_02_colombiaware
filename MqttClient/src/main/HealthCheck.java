@@ -20,7 +20,7 @@ import java.util.List;
 public class HealthCheck implements MqttCallback {
 
 	/** The broker url. */
-	private static final String brokerUrl = "tcp://157.253.146.145:8083";
+	private static final String brokerUrl = "tcp://172.24.42.69:8083";
 
 	/** The client id. */
 	private static final String clientId = "HC";
@@ -99,15 +99,15 @@ public class HealthCheck implements MqttCallback {
 
 		System.out.println("Mqtt topic : " + topic);
 		System.out.println("Mqtt msg : " + message.toString());
-		String ciudad = topic.split("\\.")[1];
-		String residencia = topic.split("\\.")[2];
+		if(topic.contains("healthcheck")) {
+		
 		String inmueble = topic.split("\\.")[3];
 		
 		//String id = ciudad+":"+residencia+":"+inmueble;
 		String id = inmueble;
 		Hilo h = hilos.stream().filter(hilo -> hilo.identificador.equals(id)).findFirst().orElse(null);
 		if(h == null) {
-			new Thread(h = new Hilo(id)).start();
+			new Thread(h = new Hilo(id,topic)).start();
 			hilos.add(h);
 			URL url = new URL("http://172.24.42.66:8080/HealthCheck/activar/"+inmueble);
 		     HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -120,7 +120,7 @@ public class HealthCheck implements MqttCallback {
 		     ss.close();
 		} else {
 			h.val();
-		}
+		}}
 
 	}
 	
@@ -129,11 +129,13 @@ public class HealthCheck implements MqttCallback {
 	private class Hilo implements Runnable {
 
 		private String identificador;
+		private String topico;
 		private boolean validar = false;
 		private boolean activo = true;
 
-		public Hilo(String identificador) {
+		public Hilo(String identificador, String topico) {
 			this.identificador = identificador;
+			this.topico = topico;
 		}
 
 		public void run() {
@@ -157,6 +159,7 @@ public class HealthCheck implements MqttCallback {
 						     ss.write(this.identificador.toString().getBytes());
 						     ss.flush();
 						     ss.close();
+						     enviarMensaje("HEALTHCHECK CONFIRMED",topico );
 						    hilos.removeIf(x -> x.identificador.equals(identificador));
 						    System.gc();
 						}
@@ -201,6 +204,48 @@ public class HealthCheck implements MqttCallback {
 		private HealthCheck getOuterType() {
 			return HealthCheck.this;
 		}
+		public void enviarMensaje(String mensaje,String topic )
+	    {
+	    	
+	        
+	        String content = mensaje;
+	        String topico = topic.split(".healthcheck")[0];
+	        int qos = 2;
+	        String broker = "tcp://172.24.42.69:8083";
+	        String clientId = "JavaSample";
+	        MemoryPersistence persistence = new MemoryPersistence();
+
+	        try {
+	            
+	            MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+	            MqttConnectOptions connOpts = new MqttConnectOptions();
+	            connOpts.setCleanSession(true);
+	            connOpts.setUserName("up");
+				char[] contra = "contra".toCharArray();
+				connOpts.setPassword(contra);
+
+
+	            System.out.println("Connecting to broker: " + broker);
+	            sampleClient.connect(connOpts);
+	            System.out.println("Connected");
+	            System.out.println("Publishing message: " + content);
+	            MqttMessage message = new MqttMessage(content.getBytes());
+	            message.setQos(qos);
+	            sampleClient.publish(topico, message);
+	            System.out.println("Message published");
+	            sampleClient.disconnect();
+	            System.out.println("Disconnected");
+	                        
+	        } catch (MqttException me) {
+	            System.out.println("reason " + me.getReasonCode());
+	            System.out.println("msg " + me.getMessage());
+	            System.out.println("loc " + me.getLocalizedMessage());
+	            System.out.println("cause " + me.getCause());
+	            System.out.println("excep " + me);
+	            me.printStackTrace();
+	            
+	        }
+	    }
 		
 		
 	}
