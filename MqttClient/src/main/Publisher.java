@@ -50,7 +50,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
         //String content = "DELETE_ALL_PASSWORDS;\n";
         String content = mensaje;
         int qos = 2;
-        String broker = "tcp://172.24.42.100:8083";
+        String broker = "tcp://172.24.42.69:8083";
         String clientId = "JavaSample";
         MemoryPersistence persistence = new MemoryPersistence();
 
