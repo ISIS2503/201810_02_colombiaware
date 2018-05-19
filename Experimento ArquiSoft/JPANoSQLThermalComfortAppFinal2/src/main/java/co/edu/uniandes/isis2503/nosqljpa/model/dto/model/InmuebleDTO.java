@@ -17,11 +17,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class InmuebleDTO {
     
     @Id
-    private String id;
+    private String idDispositivo;
     private String direccion;
     private String torre;
     private String numero;
-    private String idDispositivo;
+    private boolean estado;
     
     private ClienteEntity cliente;
     private ResidenciaEntity residenciaI;
@@ -31,12 +31,12 @@ public class InmuebleDTO {
     public InmuebleDTO() {
     }
 
-    public InmuebleDTO(String id, String direccion, String torre, String numero, String idDispositivo, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<PasswordEntity> contrasenaI) {
-        this.id = id;
+    public InmuebleDTO(String idDispositivo, String direccion, String torre, String numero, boolean estado, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<PasswordEntity> contrasenaI) {
+        this.idDispositivo = idDispositivo;
         this.direccion = direccion;
         this.torre = torre;
         this.numero = numero;
-        this.idDispositivo = idDispositivo;
+        this.estado = estado;
         this.cliente = cliente;
         this.residenciaI = residenciaI;
         this.seguridadI = seguridadI;
@@ -86,12 +86,12 @@ public class InmuebleDTO {
         this.contrasenaI.add(contrasenaI);
     }
     
-    public String getId() {
-        return id;
+    public boolean getEstado() {
+        return estado;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public String getDireccion() {

@@ -17,6 +17,7 @@ public class ResidenciaDTO {
     private String id;
     private String nombre;
     private String direccion;
+    private String ciudad;
         
     private AdminEntity admin;
     private List<InmuebleEntity> inmuebleR;
@@ -24,12 +25,21 @@ public class ResidenciaDTO {
     public ResidenciaDTO() {
     }
 
-    public ResidenciaDTO(String id, String nombre, String direccion, AdminEntity admin, List<InmuebleEntity> inmuebleR) {
+    public ResidenciaDTO(String id, String nombre, String direccion, String ciudad, AdminEntity admin, List<InmuebleEntity> inmuebleR) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
+        this.ciudad = ciudad;
         this.admin = admin;
         this.inmuebleR = inmuebleR;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public AdminEntity getAdmin() {

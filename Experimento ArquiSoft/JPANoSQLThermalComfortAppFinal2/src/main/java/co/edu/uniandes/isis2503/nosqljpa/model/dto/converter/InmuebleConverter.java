@@ -20,30 +20,30 @@ public class InmuebleConverter implements IInmuebleConverter{
     @Override
     public InmuebleDTO entityToDto(InmuebleEntity entity) {
         InmuebleDTO dto = new InmuebleDTO();
-        dto.setId(entity.getId());
+        dto.setIdDispositivo(entity.getIdDispositivo());
         dto.setDireccion(entity.getDireccion());
         dto.setTorre(entity.getTorre());
         dto.setNumero(entity.getNumero());
+        dto.setEstado(entity.getEstado());
         dto.setCliente(entity.getCliente());
         dto.setResidenciaI(entity.getResidenciaI());
         dto.setSeguridadI(entity.getSeguridadI());
         dto.setContrasenaI(entity.getContrasenaI());
-        dto.setIdDispositivo(entity.getIdDispositivo());
         return dto;
     }
 
     @Override
     public InmuebleEntity dtoToEntity(InmuebleDTO dto) {
         InmuebleEntity entity = new InmuebleEntity();
-        entity.setId(dto.getId());
+        entity.setIdDispositivo(dto.getIdDispositivo());
         entity.setDireccion(dto.getDireccion());
         entity.setTorre(dto.getTorre());
         entity.setNumero(dto.getNumero());
+        entity.setEsatdo(dto.getEstado());
         entity.setCliente(dto.getCliente());
         entity.setResidenciaI(dto.getResidenciaI());
         entity.setSeguridadI(dto.getSeguridadI());
         entity.setContrasenaI(dto.getContrasenaI());
-        entity.setIdDispositivo(dto.getIdDispositivo());
         return entity;
     }
 

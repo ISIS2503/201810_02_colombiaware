@@ -23,6 +23,7 @@ public class ResidenciaConverter implements IResidenciaConverter{
         dto.setId(entity.getId());
         dto.setNombre(entity.getNombre());
         dto.setDireccion(entity.getDireccion());
+        dto.setCiudad(entity.getCiudad());
         dto.setAdmin(entity.getAdmin());
         dto.setInmuebleR(entity.getInmuebleR());
         return dto;
@@ -34,6 +35,7 @@ public class ResidenciaConverter implements IResidenciaConverter{
         entity.setId(dto.getId());
         entity.setNombre(dto.getNombre());
         entity.setDireccion(dto.getDireccion());
+        entity.setCiudad(dto.getCiudad());
         entity.setAdmin(dto.getAdmin());
         entity.setInmuebleR(dto.getInmuebleR());
         return entity;

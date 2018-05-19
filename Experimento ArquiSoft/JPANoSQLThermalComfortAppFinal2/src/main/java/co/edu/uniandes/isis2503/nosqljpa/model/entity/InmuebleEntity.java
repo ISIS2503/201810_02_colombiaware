@@ -44,11 +44,11 @@ import org.hibernate.annotations.DynamicUpdate;
 public class InmuebleEntity implements Serializable{
     
     @Id
-    private String id;
+    private String idDispositivo;
     private String direccion;
     private String torre;
     private String numero;
-    private String idDispositivo;
+    private boolean estado;
 
     @OneToOne
     private ClienteEntity cliente;
@@ -65,12 +65,12 @@ public class InmuebleEntity implements Serializable{
     public InmuebleEntity() {
     }
 
-    public InmuebleEntity(String id, String direccion, String torre, String numero, String idDispositivo, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<PasswordEntity> contrasenaI) {
-        this.id = id;
+    public InmuebleEntity(String idDispositivo, String direccion, String torre, String numero, boolean estado, ClienteEntity cliente, ResidenciaEntity residenciaI, SeguridadEntity seguridadI, List<PasswordEntity> contrasenaI) {
+        this.idDispositivo = idDispositivo;
         this.direccion = direccion;
         this.torre = torre;
         this.numero = numero;
-        this.idDispositivo = idDispositivo;
+        this.estado = estado;
         this.cliente = cliente;
         this.residenciaI = residenciaI;
         this.seguridadI = seguridadI;
@@ -111,12 +111,12 @@ public class InmuebleEntity implements Serializable{
         this.cliente = cliente;
     }
 
-    public String getId() {
-        return id;
+    public boolean getEstado() {
+        return estado;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEsatdo(boolean estado) {
+        this.estado = estado;
     }
 
     public String getDireccion() {

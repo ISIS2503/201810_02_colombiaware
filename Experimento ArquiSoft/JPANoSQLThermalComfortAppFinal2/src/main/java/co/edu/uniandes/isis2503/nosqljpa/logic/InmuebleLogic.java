@@ -21,8 +21,8 @@ public class InmuebleLogic  implements IInmuebleLogic{
 
     @Override
     public InmuebleDTO add(InmuebleDTO dto) {
-         if(dto.getId()==null){
-            dto.setId(UUID.randomUUID().toString());
+         if(dto.getIdDispositivo()==null){
+            dto.setIdDispositivo(UUID.randomUUID().toString());
          }
         InmuebleDTO result = CONVERTERI.entityToDto(persistence.add(CONVERTERI.dtoToEntity(dto)));
         return result;
